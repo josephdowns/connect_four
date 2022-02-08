@@ -1,19 +1,34 @@
 class Board
 
-  attr_reader :welcome_message, :table
+  attr_reader :welcome_message, :board
 
   def initialize
-    # @welcome_message = welcome_message
-    @table = Matrix[ [7, 6, 1], [4, 5, 6]]
-    puts @table
-
-  # @welcome_message= "Welcome to Connect4!
-  # ABCDEFG
-  # .......
-  # .......
-  # .......
-  # .......
-  # .......
-  # ......."
+    @welcome_message = "Welcome to Connect4!"
+    @board = board
   end
+
+  def display_board
+
+    puts @welcome_message
+    @board = [
+              ["A", "B", "C", "D", "E", "F", "G"],
+              [".", ".", ".", ".", ".", ".", "."],
+              [".", ".", ".", ".", ".", ".", "."],
+              [".", ".", ".", ".", ".", ".", "."],
+              [".", ".", ".", ".", ".", ".", "."],
+              [".", ".", ".", ".", ".", ".", "."],
+              [".", ".", ".", ".", ".", ".", "."]
+    ]
+
+    @board.each do |row|
+      row.each do |columns|
+        print columns.to_s + " "
+      end
+      puts
+    end
+  end
+
 end
+
+game1 = Board.new
+game1.display_board
