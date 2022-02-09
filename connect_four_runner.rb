@@ -1,6 +1,11 @@
 require './lib/board'
+# binding.pry
+    puts "Welcome to Collect Four!"
+    puts "-"*10 + "Game Start" + "-"*10
+    puts "ABCDEFG"
 
-game = Board.new
+    game = Board.new
+    puts "-"*5 + "Choose a row from A-G" + "-"*5
 
 user_response = $stdin.gets.chomp
 column_name = ["A", "B", "C", "D", "E", "F","G"]

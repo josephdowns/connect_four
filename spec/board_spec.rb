@@ -4,8 +4,18 @@ require 'pry'
 
 RSpec.describe Board do
 
-  it "starts an empty board" do
-    expect(Board.new).to be_instance_of(Board)
+  it "creates board" do
+    # binding.pry
+    expect{Board.new}.to output(
+      <<~EXPECTED
+      .......
+      .......
+      .......
+      .......
+      .......
+      .......
+       EXPECTED
+    ).to_stdout
   end
-  
+
 end
