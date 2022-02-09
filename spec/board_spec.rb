@@ -1,10 +1,11 @@
-require "./lib/board"
-require "pry"
-require "rspec"
+require './lib/board'
+require 'rspec'
+require 'pry'
 
 RSpec.describe Board do
-  it "establish an empty board" do
-    game1 = Board.new
-    expect(game1).to be_instance_of(Board)
+
+  it "starts an empty board" do
+    expect(Board.new).to be_instance_of(Board)
   end
+
 end
