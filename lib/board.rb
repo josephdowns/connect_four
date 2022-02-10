@@ -4,33 +4,29 @@ require 'pry'
 class Board
   attr_reader :board
   def initialize
-    @board = [{A1:"x", B1:"x", C1:"x", D1:"x", E1:"x", F1:"x", G1:"x"},
-              {A2:"x", B2:"x", C2:"x", D2:"x", E2:"x", F2:"x", G2:"x"},
-              {A3:"x", B3:"x", C3:"x", D3:"x", E3:"x", F3:"x", G3:"x"},
-              {A4:"x", B4:"x", C4:"x", D4:"x", E4:"x", F4:"x", G4:"x"},
-              {A5:"x", B5:"x", C5:"x", D5:"x", E5:"x", F5:"x", G5:"x"},
-              {A6:"x", B6:"x", C6:"x", D6:"x", E6:"x", F6:"x", G6:"x"}]
+    #board reformatted upside down
+    @board = [{A6:".", B6:".", C6:".", D6:".", E6:".", F6:".", G6:"."},
+              {A5:".", B5:".", C5:".", D5:".", E5:".", F5:".", G5:"."},
+              {A4:".", B4:".", C4:".", D4:".", E4:".", F4:".", G4:"."},
+              {A3:".", B3:".", C3:".", D3:".", E3:".", F3:".", G3:"."},
+              {A2:".", B2:".", C2:".", D2:".", E2:".", F2:".", G2:"."},
+              {A1:".", B1:".", C1:".", D1:".", E1:".", F1:".", G1:"."}]
 
 
-    @board.each do |row|
-      row.each do |key, value|
-       row[key] = "."
-     end
-    end
-# binding.pry
-    puts "Welcome to Collect Four!"
-    puts "-"*10 + "Game Start" + "-"*10
-    puts "ABCDEFG"
+    def print_board
+      @board.each do |row|
+        puts row.values.join
 
-    @board.each do |row|
-      puts row.values.join
-
+      end
     end
 
-    puts "-"*5 + "Choose a row from A-G" + "-"*5
+    # puts "-"*5 + "Choose a row from A-G" + "-"*5
   end
 
-  def move
+  def move(column)
+
+
+
   end
 
 end
