@@ -1,12 +1,15 @@
 require './lib/board'
+require './lib/turn'
 require 'rspec'
 require 'pry'
-
+  empty_board = Board.new({}).empty_board # call empty_board -written in turn
+  board = Board.new(empty_board) #feed empty_board into board to print
 RSpec.describe Board do
 
-  it "creates board" do
-    game = Board.new
-    expect{game.print_board}.to output(
+  it "prints empty board" do
+    # game = Board.new
+    # binding.pry
+    expect{board.print_board}.to output(
       <<~EXPECTED
       .......
       .......
@@ -18,19 +21,6 @@ RSpec.describe Board do
     ).to_stdout
   end
 
-  xit "test the move" do
-    # game = Board.new
-    expect{game.move(A)}.to output(
-      <<~EXPECTED
-      .......
-      .......
-      .......
-      .......
-      .......
-      x......
-       EXPECTED
-      ).to_stdout
-  end
 
 
 end
