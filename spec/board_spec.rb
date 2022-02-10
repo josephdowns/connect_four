@@ -5,8 +5,8 @@ require 'pry'
 RSpec.describe Board do
 
   it "creates board" do
-    # binding.pry
-    expect{Board.new}.to output(
+    game = Board.new
+    expect{game.print_board}.to output(
       <<~EXPECTED
       .......
       .......
@@ -17,5 +17,20 @@ RSpec.describe Board do
        EXPECTED
     ).to_stdout
   end
+
+  xit "test the move" do
+    # game = Board.new
+    expect{game.move(A)}.to output(
+      <<~EXPECTED
+      .......
+      .......
+      .......
+      .......
+      .......
+      x......
+       EXPECTED
+      ).to_stdout
+  end
+
 
 end
