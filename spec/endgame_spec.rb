@@ -10,6 +10,7 @@ turn = Turn.new
 
 describe Turn do
   xit "declares winner player column" do
+    
     current_board = empty_board
     4.times do
       turn.player_move('G', current_board)
@@ -48,7 +49,7 @@ describe Turn do
     expect(turn.end_game?).to eq("You lose.")
   end
 
-  it "declares draw" do
+  xit "declares draw" do
     current_board = empty_board
     draw_board = {}
     current_board.each do |k, v|
