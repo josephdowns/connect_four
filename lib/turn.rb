@@ -66,14 +66,30 @@ class Turn
 
   end
 
-
   def end_game?(current_board)
     @current_board = current_board
+    # call all rows
+    row_names = ['1','2','3','4','5','6'].reverse #
+    column_by_rows = []
+    current_row = {}
+    row_names.each do |row|
+      current_row={}
+      @current_board.each do |key, value|
+        if key.to_s.include?row
+          current_row[key] = value
+        end
+      end
+      column_by_rows << current_row
+    end
+
+    #call all columns
 
 
 
-  end
+    #call all diagnals that's greater than 4 pieces
 
+
+end
 
 
 end
