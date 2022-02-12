@@ -13,10 +13,10 @@ class Turn
       @current_board = input_board
 
       if !@column_name.include?column
-         Board.new(@current_board).print_board
          puts "Invalid column selected. Please try again (A-G)"
          cs = $stdin.gets.chomp
          puts "ABCDEFG"
+         Board.new(@current_board).print_board
          player_move(cs, @current_board)
       elsif @column_name.include?column
           @current_board.each do |key, value|
@@ -31,10 +31,14 @@ class Turn
                             end
             current_cell_index = current_cell[0]
             @current_board[current_cell_index] = 'x'
+            puts "ABCDEFG"
             Board.new(@current_board).print_board
           else
+            puts "ABCDEFG"
             Board.new(@current_board).print_board
             puts "***Column full-select another column***"
+            cs = $stdin.gets.chomp
+            player_move(cs, @current_board)
           end
 
       end
@@ -43,7 +47,7 @@ class Turn
 
 
   def computer_move(input_board)
-    sleep([1, 2].sample)
+    sleep([0.5, 1].sample)
     column_cpu = @column_name.sample
     current_column = {}
     @current_board = input_board
@@ -62,6 +66,7 @@ class Turn
                     end
     current_cell_index = current_cell[0]
     @current_board[current_cell_index] = 'o'
+    puts "ABCDEFG"
     Board.new(@current_board).print_board
 
   end
@@ -82,7 +87,7 @@ class Turn
       column_by_rows << current_row
     end
 
-    #call all columns
+    #call all column
 
 
 
