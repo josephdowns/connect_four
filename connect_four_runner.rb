@@ -1,23 +1,19 @@
 require './lib/board'
 require './lib/turn'
 
-# binding.pry
     puts "Welcome to Collect Four!"
     puts "-"*10 + "Game Start" + "-"*10
-    board_init = Board.new({}) #start with empty hash
-    turn_init = Turn.new #initialize a turn class
+    turn_init = Turn.new
     puts "ABCDEFG"
-    empty_board = board_init.empty_board #fetch empty_board stored
-    # binding.pry
+    empty_board = Board.new({}).empty_board
     Board.new(empty_board).print_board
     puts "Select your first column from A-G"
 
-    # column_name = ["A", "B", "C", "D", "E", "F","G", "a", "b", "c", "d", "e", "f", "g"]
-    current_board =empty_board
-    while current_board.values.any?"." do #change condition to if end
-      user_response =$stdin.gets.chomp
+    current_board = empty_board
+    while current_board.values.any?"." do
+      column_selected = $stdin.gets.chomp
       puts "ABCDEFG"
-      turn_init.player_move(user_response, current_board)
+      turn_init.player_move(column_selected, current_board)
       current_board = turn_init.current_board
       puts "*"*5 + "Select another column" + "*"*5
     end
