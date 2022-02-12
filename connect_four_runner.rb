@@ -15,5 +15,10 @@ require './lib/turn'
       puts "ABCDEFG"
       turn_init.player_move(column_selected, current_board)
       current_board = turn_init.current_board
+      puts "Give me a sec..."
+      puts "ABCDEFG"
+      turn_init.computer_move(current_board)
+      current_board = turn_init.current_board
       puts "*"*5 + "Select another column" + "*"*5
+
     end
