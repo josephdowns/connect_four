@@ -39,6 +39,7 @@ class Turn
             puts ""
             puts "ABCDEFG"
             Board.new(@current_board).print_board
+            puts ""
             puts "***Column full-select another column***"
             cs = $stdin.gets.chomp
             player_move(cs, @current_board)
@@ -52,19 +53,28 @@ class Turn
   def computer_move(input_board)
     sleep([0.5, 1].sample)
     column_cpu = @column_name.sample
-    current_column = {}
+    @current_column = {}
     @current_board = input_board
     @current_board.each do |key, value|
       if key.to_s.include?column_cpu
-        current_column[key] = value
+        @current_column[key] = value
       end
     end
 
-    until current_column.values.include?'.' do
-        @column_name.sample
+    until @current_column.values.include?'.' do
+      new_column_cpu = @column_name.sample
+        if new_column_cpu != column_cpu
+          # @current_column = {}
+          @current_board.each do |key, value|
+            if key.to_s.include?column_cpu
+              @current_column[key] = value
+            end
+          end
+          break
+        end
     end
 
-    current_cell =  current_column.find do |key, value| ###
+    current_cell =  @current_column.find do |key, value| ###
                     value == '.'
                     end
     current_cell_index = current_cell[0]
@@ -77,10 +87,8 @@ class Turn
 
   def end_game?(input_board)
     @current_board = input_board
-    # call all rows
-    row_names = ['1','2','3','4','5','6'].reverse #
-    column_by_rows = []
-    current_row = {}
+    row_names = ['6','5','4','3','2','1']
+    rows = []
     row_names.each do |row|
       current_row = {}
       @current_board.each do |key, value|
@@ -88,17 +96,66 @@ class Turn
           current_row[key] = value
         end
       end
-      column_by_rows << current_row
+      rows << current_row
+      # binding.pry
     end
 
-    #call all column
+    if rows[0].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    elsif rows[1].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    elsif rows[2].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    elsif rows[3].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    elsif rows[4].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    elsif rows[5].values.join.include?("xxxx") == true
+      puts ""
+      puts "You win!"
+      return true
+    else
+      return false
+    end
 
-
-
-    #call all diagnals that's greater than 4 pieces
-
-
-end
+    if rows[0].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    elsif rows[1].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    elsif rows[2].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    elsif rows[3].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    elsif rows[4].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    elsif rows[5].values.join.include?("oooo") == true
+      puts ""
+      puts "You lose. I win!"
+      return true
+    else
+      return false
+    end
+  end
 
 
 end
