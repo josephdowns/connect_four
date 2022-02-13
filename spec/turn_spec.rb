@@ -3,13 +3,13 @@ require './lib/turn'
 require 'rspec'
 require 'pry'
 #initialize a board class
-empty_board = Board.new({}).empty_board
-turn = Turn.new
 
 RSpec.describe Turn do
 
   context "player_move" do
       it "test the move" do
+        turn = Turn.new
+        empty_board = Board.new({}).empty_board
         expect{turn.player_move('G', empty_board)}.to output(
           <<~EXPECTED
           ABCDEFG
@@ -40,7 +40,7 @@ RSpec.describe Turn do
         end
 
       xit "tests when column is full" do #fails because of a new loop
-        current_board = empty_board
+        current_board = Board.new({}).empty_board
         6.times do
           turn.player_move('G', current_board)
         end
@@ -104,7 +104,7 @@ RSpec.describe Turn do
   context "end_game" do
     xit "declares winner player column" do
 
-      current_board = empty_board
+      current_board = Board.new({}).empty_board
       4.times do
         turn.player_move('G', current_board)
       end
@@ -114,7 +114,8 @@ RSpec.describe Turn do
     end
 
     xit "declares winner player row" do
-      current_board = empty_board
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       turn.player_move("A", current_board)
       turn.player_move("B", current_board)
       turn.player_move("C", current_board)
@@ -123,7 +124,8 @@ RSpec.describe Turn do
     end
 
     xit "declares winner computer column" do
-      current_board = empty_board
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B1] = "o"
       current_board[:B2] = "o"
       current_board[:B3] = "o"
@@ -133,7 +135,8 @@ RSpec.describe Turn do
     end
 
     xit "declares winner computer row" do
-      current_board = empty_board
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B1] = "o"
       current_board[:C1] = "o"
       current_board[:D1] = "o"
@@ -144,7 +147,8 @@ RSpec.describe Turn do
 
 
     xit "declares winner player row" do
-      current_board = empty_board
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       turn.player_move("A", current_board)
       turn.player_move("B", current_board)
       turn.player_move("C", current_board)
@@ -153,54 +157,59 @@ RSpec.describe Turn do
     end
 
 
-    xit "declares winner computer diagnal up" do
-      current_board = empty_board
+    it "declares winner computer diagnal up" do
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B1] = "o"
       current_board[:C2] = "o"
       current_board[:D3] = "o"
       current_board[:E4] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq("You lose.")
     end
 
-    xit "declares winner player diagnal up" do
-      current_board = empty_board
+    it "declares winner player diagnal up" do
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B1] = "x"
       current_board[:C2] = "x"
       current_board[:D3] = "x"
       current_board[:E4] = "x"
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq("You win!")
     end
 
 
-    xit "declares winner computer diagnal down" do
-      current_board = empty_board
+    it "declares winner computer diagnal down" do
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B4] = "o"
       current_board[:C3] = "o"
       current_board[:D2] = "o"
       current_board[:E1] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq("You lose.")
     end
 
-    xit "declares winner player diagnal down" do
-      current_board = empty_board
+    it "declares winner player diagnal down" do
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       current_board[:B4] = "x"
       current_board[:C3] = "x"
       current_board[:D2] = "x"
       current_board[:E1] = "x"
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq("You win!")
     end
 
 
-    xit "declares draw" do
-      current_board = empty_board
+    it "declares draw" do
+      turn = Turn.new
+      current_board = Board.new({}).empty_board
       draw_board = {}
       current_board.each do |k, v|
           draw_board[k] = "w"
       end
 
-      expect(turn.end_game?).to eq("Draw!")
+      expect(turn.end_game?(draw_board)).to eq("Draw!")
     end
 
 
