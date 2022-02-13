@@ -15,6 +15,7 @@ class Turn
       if !@column_name.include?column
          puts "Invalid column selected. Please try again (A-G)"
          cs = $stdin.gets.chomp
+         puts ""
          puts "ABCDEFG"
          Board.new(@current_board).print_board
          player_move(cs, @current_board)
@@ -31,9 +32,11 @@ class Turn
                             end
             current_cell_index = current_cell[0]
             @current_board[current_cell_index] = 'x'
+            puts ""
             puts "ABCDEFG"
             Board.new(@current_board).print_board
           else
+            puts ""
             puts "ABCDEFG"
             Board.new(@current_board).print_board
             puts "***Column full-select another column***"
@@ -66,19 +69,20 @@ class Turn
                     end
     current_cell_index = current_cell[0]
     @current_board[current_cell_index] = 'o'
+    puts ""
     puts "ABCDEFG"
     Board.new(@current_board).print_board
 
   end
 
-  def end_game?(current_board)
-    @current_board = current_board
+  def end_game?(input_board)
+    @current_board = input_board
     # call all rows
     row_names = ['1','2','3','4','5','6'].reverse #
     column_by_rows = []
     current_row = {}
     row_names.each do |row|
-      current_row={}
+      current_row = {}
       @current_board.each do |key, value|
         if key.to_s.include?row
           current_row[key] = value

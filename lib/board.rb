@@ -14,10 +14,9 @@ class Board
     return
     end
 
-  def print_board #prints the board argument
+  def print_board
 
-        rows = ['1','2','3','4','5','6'].reverse # print upside down
-        # cols = ["A", "B", "C", "D", "E", "F","G"]
+        rows = ['1','2','3','4','5','6'].reverse
         rows.each do |row|
             current_row = {}
             @board.each do |key, value|
