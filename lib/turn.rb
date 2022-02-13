@@ -41,6 +41,8 @@ class Turn
             Board.new(@current_board).print_board
             puts ""
             puts "***Column full-select another column***"
+            puts ""
+            print "> "
             cs = $stdin.gets.chomp
             player_move(cs, @current_board)
           end
@@ -62,17 +64,21 @@ class Turn
     end
 
     until @current_column.values.include?'.' do
-      new_column_cpu = @column_name.sample
-        if new_column_cpu != column_cpu
-          # @current_column = {}
-          @current_board.each do |key, value|
-            if key.to_s.include?column_cpu
-              @current_column[key] = value
-            end
-          end
-          break
-        end
+      computer_move(input_board)
     end
+
+    #until @current_column.values.include?'.' do
+    #   new_column_cpu = @column_name.sample
+    #     if new_column_cpu != column_cpu
+    #       # @current_column = {}
+    #       @current_board.each do |key, value|
+    #         if key.to_s.include?column_cpu
+    #           @current_column[key] = value
+    #         end
+    #       end
+    #       break
+    #     end
+    # end
 
     current_cell =  @current_column.find do |key, value| ###
                     value == '.'
@@ -82,6 +88,10 @@ class Turn
     puts ""
     puts "ABCDEFG"
     Board.new(@current_board).print_board
+
+    # if !@current_column.values.include?(".")
+    #   column_name.delete(column_cpu)
+    # end
 
   end
 
@@ -124,11 +134,7 @@ class Turn
       puts ""
       puts "You win!"
       return true
-    else
-      return false
-    end
-
-    if rows[0].values.join.include?("oooo") == true
+    elsif rows[0].values.join.include?("oooo") == true
       puts ""
       puts "You lose. I win!"
       return true
