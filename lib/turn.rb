@@ -12,13 +12,14 @@ class Turn
       current_column = {}
       @current_board = input_board
 
+###############################determines the valid move
       if !@column_name.include?column
          puts "Invalid column selected. Please try again (A-G)"
-         cs = $stdin.gets.chomp
+         new_column_selected = $stdin.gets.chomp
          puts ""
          puts "ABCDEFG"
          Board.new(@current_board).print_board
-         player_move(cs, @current_board)
+         player_move(new_column_selected, @current_board)
       elsif @column_name.include?column
           @current_board.each do |key, value|
             if key.to_s.include?column
@@ -26,6 +27,7 @@ class Turn
             end
           end
 
+#######################################if valid move, places a piece
           if current_column.values.include?'.'
             current_cell =  current_column.find do |key, value| ###
                             value == '.'
@@ -78,8 +80,11 @@ class Turn
 
   end
 
+
+
   def end_game?(input_board)
     @current_board = input_board
+    ############################row condition
     row_names = ['6','5','4','3','2','1']
     rows = []
     row_names.each do |row|
@@ -92,24 +97,7 @@ class Turn
       rows << current_row_selected
     end
 
-
-
-
-    column_names = ['A','B','C','D','E','F', 'G']
-    columns = []
-    column_names.each do |column|
-      current_column_selected = {}
-      @current_board.each do |key, value|
-        if key.to_s.include?column
-          current_column_selected[key] = value
-        end
-      end
-      columns << current_column_selected
-    end
-
     endcounterrow = 0
-    endcountercolumn = 0
-
     until endcounterrow == 6 do
       if rows[endcounterrow].values.join.include?("xxxx") == true
         puts ""
@@ -124,6 +112,20 @@ class Turn
       endcounterrow += 1
     end
 
+    ###################################column condition
+    column_names = ['A','B','C','D','E','F', 'G']
+    columns = []
+    column_names.each do |column|
+      current_column_selected = {}
+      @current_board.each do |key, value|
+        if key.to_s.include?column
+          current_column_selected[key] = value
+        end
+      end
+      columns << current_column_selected
+    end
+
+    endcountercolumn = 0
     until endcountercolumn == 7 do
       if columns[endcountercolumn].values.join.include?("xxxx") == true
         puts ""
@@ -144,7 +146,7 @@ class Turn
     ############################################### diagonal condition
     cb = @current_board
     @DU1 = [] ; @DU2 = []; @DU3 = []; @DU4 = []; @DU5 = []; @DU6 = []
-    @@DD1 = [] ; @@DD2 = []; @DD3 = []; @DD4 = []; @DD5 = []; @DD6 = []
+    @DD1 = [] ; @DD2 = []; @DD3 = []; @DD4 = []; @DD5 = []; @DD6 = []
 
     @DU1 = [cb[:A1], cb[:B2], cb[:C3], cb[:D4], cb[:E5], cb[:F6]]
     @DU2 = [cb[:B1], cb[:C2], cb[:D3], cb[:E4], cb[:F5], cb[:G6]]
@@ -163,10 +165,10 @@ class Turn
     diagonal_lines.each do |line|
       if line.join.include?'xxxx'
         puts "You win!"
-        return "You win!"
+        return true
       elsif line.join.include?'oooo'
         puts "You lose."
-        return "You lose."
+        return true
       end
     end
 
@@ -174,7 +176,7 @@ class Turn
     ##################################### draw condition
     if current_board.values.none?'.'
       puts "Draw!"
-      return "Draw!"
+      return true
     end
 
   end

@@ -28,25 +28,25 @@ require './lib/turn'
 
           current_board = empty_board
           until turn_init.end_game?(current_board) == true do
-            puts ""
-            print "> "
-            column_selected = $stdin.gets.chomp
-            turn_init.player_move(column_selected, current_board)
-            current_board = turn_init.current_board
-            if turn_init.end_game?(current_board) == true
               puts ""
-              break
-            end
-            puts ""
-            puts "*"*5 + "My turn! Give me a sec..." + "*"*5
-            turn_init.computer_move(current_board)
-            current_board = turn_init.current_board
-            if turn_init.end_game?(current_board) == true
+              print "> "
+              column_selected = $stdin.gets.chomp
+              turn_init.player_move(column_selected, current_board)
+              current_board = turn_init.current_board
+              if turn_init.end_game?(current_board) == true
+                  puts ""
+                  break
+              end
               puts ""
-              break
-            end
-            puts ""
-            puts "*"*5 + "Your turn! Select a column" + "*"*5
+              puts "*"*5 + "My turn! Give me a sec..." + "*"*5
+              turn_init.computer_move(current_board)
+              current_board = turn_init.current_board
+              if turn_init.end_game?(current_board) == true
+                  puts ""
+                  break
+              end
+              puts ""
+              puts "*"*5 + "Your turn! Select a column" + "*"*5
           end
     elsif menu_selection == "Q"
       puts ""
