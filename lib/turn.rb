@@ -3,43 +3,58 @@ require 'pry'
 class Turn
   attr_reader :empty_board, :current_board
   def initialize
-    @column_name = ["A", "B", "C", "D", "E", "F","G" ]
+    @column_name = ["A", "B", "C", "D", "E", "F", "G"]
+  end
+
+  def gather_column(column_selected)
+    column_selected = column_selected
+    @current_column = {}
+    # binding.pry
+    @current_board.each do |key, value|
+      if key.to_s.include?column_selected
+        @current_column[key] = value
+      end
+    end
+  end
+
+  def valid_move?(column_selected)
+    column_recieved = column_selected.upcase
+    if !@column_name.include?column_recieved
+      puts ""
+      puts "Invalid column selected. Please try again (A-G)"
+      puts ""
+      print "> "
+      return false
+    elsif @column_name.include?column_recieved
+      return true
+    end
+  end
+
+  def column_full?(column_selected)
+    column_selected = column_selected
+    gather_column(column_selected)
+    if @current_column.values.any?(".")
+      return false
+    else
+      return true
+    end
   end
 
 
   def player_move(column_selected, input_board)
-      column = column_selected.upcase
-      current_column = {}
+      column_selected = column_selected.upcase
       @current_board = input_board
-
-###############################determines the valid move
-      if !@column_name.include?column
-         puts "Invalid column selected. Please try again (A-G)"
-         new_column_selected = $stdin.gets.chomp
-         puts ""
-         puts "ABCDEFG"
-         Board.new(@current_board).print_board
-         player_move(new_column_selected, @current_board)
-      elsif @column_name.include?column
-          @current_board.each do |key, value|
-            if key.to_s.include?column
-              current_column[key] = value
-            end
-          end
-
+      cf = column_full?(column_selected)
+# binding.pry
 #######################################if valid move, places a piece
-          if current_column.values.include?'.'
-            current_cell =  current_column.find do |key, value| ###
+          if cf == false
+            current_cell =  @current_column.find do |key, value| ###
                             value == '.'
                             end
             current_cell_index = current_cell[0]
             @current_board[current_cell_index] = 'x'
-            puts ""
-            puts "ABCDEFG"
             Board.new(@current_board).print_board
-          else
-            puts ""
-            puts "ABCDEFG"
+          else cf == true
             Board.new(@current_board).print_board
             puts ""
             puts "***Column full-select another column***"
@@ -49,7 +64,7 @@ class Turn
             player_move(cs, @current_board)
           end
 
-      end
+
   end
 
 
@@ -74,8 +89,6 @@ class Turn
                     end
     current_cell_index = current_cell[0]
     @current_board[current_cell_index] = 'o'
-    puts ""
-    puts "ABCDEFG"
     Board.new(@current_board).print_board
 
   end

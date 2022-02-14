@@ -15,6 +15,8 @@ class Board
     end
 
   def print_board
+        puts ""
+        puts "ABCDEFG"
         rows = ['1','2','3','4','5','6'].reverse
         rows.each do |row|
             current_row = {}
