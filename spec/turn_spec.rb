@@ -7,6 +7,7 @@ require 'pry'
 RSpec.describe Turn do
 
   context "player_move" do
+
       it "test the move" do
         turn = Turn.new
         empty_board = Board.new({}).empty_board
@@ -62,7 +63,7 @@ RSpec.describe Turn do
 
 
   context "computer_move" do
-    it "tests whether computer does a valid move" do
+    xit "tests whether computer does a valid move" do
       turn_new = Turn.new
       eb = Board.new({}).empty_board
       cb = eb
@@ -78,7 +79,7 @@ RSpec.describe Turn do
       expect(row2.include?"o").to eq(true)
     end
 
-    it "has no more than 3 tests given same output out of 5 tests" do
+    xit "has no more than 3 tests given same output out of 5 tests" do
       turn_new = Turn.new
       turn_new.computer_move(Board.new({}).empty_board)
       test1 = turn_new.current_board.invert["o"]
@@ -102,16 +103,17 @@ RSpec.describe Turn do
 
 
   context "end_game" do
-    xit "declares winner player column" do
+    it "declares winner player column" do
 
       current_board = Board.new({}).empty_board
       4.times do
         turn.player_move('G', current_board)
       end
 
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq(true)
 
     end
+
 
     xit "declares winner player row" do
       turn = Turn.new
@@ -120,8 +122,9 @@ RSpec.describe Turn do
       turn.player_move("B", current_board)
       turn.player_move("C", current_board)
       turn.player_move("D", current_board)
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
+
 
     xit "declares winner computer column" do
       turn = Turn.new
@@ -131,8 +134,9 @@ RSpec.describe Turn do
       current_board[:B3] = "o"
       current_board[:B4] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
+
 
     xit "declares winner computer row" do
       turn = Turn.new
@@ -142,8 +146,9 @@ RSpec.describe Turn do
       current_board[:D1] = "o"
       current_board[:E1] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
+
 
 
     xit "declares winner player row" do
@@ -208,7 +213,6 @@ RSpec.describe Turn do
       current_board.each do |k, v|
           draw_board[k] = "w"
       end
-
       expect(turn.end_game?(draw_board)).to eq("Draw!")
     end
 
