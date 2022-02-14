@@ -13,6 +13,7 @@ RSpec.describe Turn do
         empty_board = Board.new({}).empty_board
         expect{turn.player_move('G', empty_board)}.to output(
           <<~EXPECTED
+          
           ABCDEFG
           .......
           .......
@@ -20,7 +21,7 @@ RSpec.describe Turn do
           .......
           .......
           ......x
-           EXPECTED
+          EXPECTED
           ).to_stdout
       end
 
@@ -104,7 +105,7 @@ RSpec.describe Turn do
 
   context "end_game" do
     it "declares winner player column" do
-
+      turn = Turn.new
       current_board = Board.new({}).empty_board
       4.times do
         turn.player_move('G', current_board)
