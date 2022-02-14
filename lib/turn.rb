@@ -67,19 +67,6 @@ class Turn
       computer_move(input_board)
     end
 
-    #until @current_column.values.include?'.' do
-    #   new_column_cpu = @column_name.sample
-    #     if new_column_cpu != column_cpu
-    #       # @current_column = {}
-    #       @current_board.each do |key, value|
-    #         if key.to_s.include?column_cpu
-    #           @current_column[key] = value
-    #         end
-    #       end
-    #       break
-    #     end
-    # end
-
     current_cell =  @current_column.find do |key, value| ###
                     value == '.'
                     end
@@ -89,10 +76,6 @@ class Turn
     puts "ABCDEFG"
     Board.new(@current_board).print_board
 
-    # if !@current_column.values.include?(".")
-    #   column_name.delete(column_cpu)
-    # end
-
   end
 
   def end_game?(input_board)
@@ -100,67 +83,61 @@ class Turn
     row_names = ['6','5','4','3','2','1']
     rows = []
     row_names.each do |row|
-      current_row = {}
+      current_row_selected = {}
       @current_board.each do |key, value|
         if key.to_s.include?row
-          current_row[key] = value
+          current_row_selected[key] = value
         end
       end
-      rows << current_row
-      # binding.pry
+      rows << current_row_selected
     end
 
-    if rows[0].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[1].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[2].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[3].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[4].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[5].values.join.include?("xxxx") == true
-      puts ""
-      puts "You win!"
-      return true
-    elsif rows[0].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    elsif rows[1].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    elsif rows[2].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    elsif rows[3].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    elsif rows[4].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    elsif rows[5].values.join.include?("oooo") == true
-      puts ""
-      puts "You lose. I win!"
-      return true
-    else
-      return false
+
+
+    column_names = ['A','B','C','D','E','F', 'G']
+    columns = []
+    column_names.each do |column|
+      current_column_selected = {}
+      @current_board.each do |key, value|
+        if key.to_s.include?column
+          current_column_selected[key] = value
+        end
+      end
+      columns << current_column_selected
     end
+
+    endcounterrow = 0
+    endcountercolumn = 0
+
+    until endcounterrow == 6 do
+      if rows[endcounterrow].values.join.include?("xxxx") == true
+        puts ""
+        puts "You win!"
+        return true
+      elsif rows[endcounterrow].values.join.include?("oooo") == true
+        puts ""
+        puts "You lose. I win!"
+        return true
+      else
+      end
+      endcounterrow += 1
+    end
+
+    until endcountercolumn == 7 do
+      if columns[endcountercolumn].values.join.include?("xxxx") == true
+        puts ""
+        puts "You win!"
+        return true
+      elsif columns[endcountercolumn].values.join.include?("oooo") == true
+        puts ""
+        puts "You lose. I win!"
+        return true
+      else
+      end
+      endcountercolumn += 1
+    end
+
+
   end
 
 

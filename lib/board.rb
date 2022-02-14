@@ -15,7 +15,6 @@ class Board
     end
 
   def print_board
-
         rows = ['1','2','3','4','5','6'].reverse
         rows.each do |row|
             current_row = {}
@@ -26,7 +25,6 @@ class Board
             end
           puts current_row.values.join
         end
-
   end
 
 

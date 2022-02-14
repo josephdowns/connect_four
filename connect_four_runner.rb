@@ -27,7 +27,7 @@ require './lib/turn'
           puts "Select your first column from A-G"
 
           current_board = empty_board
-          while turn_init.end_game?(current_board) == false do
+          until turn_init.end_game?(current_board) == true do
             puts ""
             print "> "
             column_selected = $stdin.gets.chomp
@@ -49,5 +49,6 @@ require './lib/turn'
             puts "*"*5 + "Your turn! Select a column" + "*"*5
           end
     elsif menu_selection == "Q"
+      puts ""
       puts "Maybe next time! Bye!"
     end

@@ -9,7 +9,7 @@ turn = Turn.new
 RSpec.describe Turn do
 
   context "player_move" do
-      it "test the move" do
+      xit "test the move" do
         expect{turn.player_move('G', empty_board)}.to output(
           <<~EXPECTED
           ABCDEFG
@@ -62,7 +62,7 @@ RSpec.describe Turn do
 
 
   context "computer_move" do
-    it "tests whether computer does a valid move" do
+    xit "tests whether computer does a valid move" do
       turn_new = Turn.new
       eb = Board.new({}).empty_board
       cb = eb
@@ -78,7 +78,7 @@ RSpec.describe Turn do
       expect(row2.include?"o").to eq(true)
     end
 
-    it "has no more than 3 tests given same output out of 5 tests" do
+    xit "has no more than 3 tests given same output out of 5 tests" do
       turn_new = Turn.new
       turn_new.computer_move(Board.new({}).empty_board)
       test1 = turn_new.current_board.invert["o"]
@@ -102,56 +102,45 @@ RSpec.describe Turn do
 
 
   context "end_game" do
-    xit "declares winner player column" do
+    it "declares winner player column" do
 
       current_board = empty_board
       4.times do
         turn.player_move('G', current_board)
       end
 
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq(true)
 
     end
 
-    xit "declares winner player row" do
+    it "declares winner player row" do
       current_board = empty_board
       turn.player_move("A", current_board)
       turn.player_move("B", current_board)
       turn.player_move("C", current_board)
       turn.player_move("D", current_board)
-      expect(turn.end_game?).to eq("You win!")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
-    xit "declares winner computer column" do
+    it "declares winner computer column" do
       current_board = empty_board
       current_board[:B1] = "o"
       current_board[:B2] = "o"
       current_board[:B3] = "o"
       current_board[:B4] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
-    xit "declares winner computer row" do
+    it "declares winner computer row" do
       current_board = empty_board
       current_board[:B1] = "o"
       current_board[:C1] = "o"
       current_board[:D1] = "o"
       current_board[:E1] = "o"
 
-      expect(turn.end_game?).to eq("You lose.")
+      expect(turn.end_game?(current_board)).to eq(true)
     end
-
-
-    xit "declares winner player row" do
-      current_board = empty_board
-      turn.player_move("A", current_board)
-      turn.player_move("B", current_board)
-      turn.player_move("C", current_board)
-      turn.player_move("D", current_board)
-      expect(turn.end_game?).to eq("You win!")
-    end
-
 
     xit "declares winner computer diagnal up" do
       current_board = empty_board
