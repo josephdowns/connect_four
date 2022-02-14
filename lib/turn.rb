@@ -94,6 +94,7 @@ class Turn
 
 
 
+
     column_names = ['A','B','C','D','E','F', 'G']
     columns = []
     column_names.each do |column|
@@ -137,6 +138,44 @@ class Turn
       endcountercolumn += 1
     end
 
+
+
+
+    ############################################### diagonal condition
+    cb = @current_board
+    @DU1 = [] ; @DU2 = []; @DU3 = []; @DU4 = []; @DU5 = []; @DU6 = []
+    @@DD1 = [] ; @@DD2 = []; @DD3 = []; @DD4 = []; @DD5 = []; @DD6 = []
+
+    @DU1 = [cb[:A1], cb[:B2], cb[:C3], cb[:D4], cb[:E5], cb[:F6]]
+    @DU2 = [cb[:B1], cb[:C2], cb[:D3], cb[:E4], cb[:F5], cb[:G6]]
+    @DU3 = [cb[:C1], cb[:D2], cb[:E3], cb[:F4], cb[:G5]]
+    @DU4 = [cb[:D1], cb[:E2], cb[:F3], cb[:G4]]
+    @DU5 = [cb[:A2], cb[:B3], cb[:C4], cb[:E5], cb[:G6]]
+    @DU6 = [cb[:A3], cb[:B4], cb[:D5], cb[:E6]]
+    @DD1 = [cb[:G1], cb[:F2], cb[:E3], cb[:D4], cb[:C5], cb[:B6]]
+    @DD2 = [cb[:F1], cb[:E2], cb[:D3], cb[:C4], cb[:B5], cb[:A6]]
+    @DD3 = [cb[:E1], cb[:D2], cb[:C3], cb[:B4], cb[:A5]]
+    @DD4 = [cb[:D1], cb[:C2], cb[:B3], cb[:A4]]
+    @DD5 = [cb[:G2], cb[:F3], cb[:E4], cb[:D5], cb[:C6]]
+    @DD6 = [cb[:G3], cb[:F4], cb[:E5], cb[:D6]]
+
+    diagonal_lines = [@DU1, @DU2, @DU3, @DU4, @DU5, @DU6, @DD1, @DD2, @DD3, @DD4, @DD5, @DD6]
+    diagonal_lines.each do |line|
+      if line.join.include?'xxxx'
+        puts "You win!"
+        return "You win!"
+      elsif line.join.include?'oooo'
+        puts "You lose."
+        return "You lose."
+      end
+    end
+
+
+    ##################################### draw condition
+    if current_board.values.none?'.'
+      puts "Draw!"
+      return "Draw!"
+    end
 
   end
 
