@@ -11,18 +11,7 @@ RSpec.describe Turn do
       it "test the move" do
         turn = Turn.new
         empty_board = Board.new({}).empty_board
-        expect{turn.player_move("A", empty_board)}.to output(
-          <<~EXPECTED
-
-        A B C D E F G
-        . . . . . . .
-        . . . . . . .
-        . . . . . . .
-        . . . . . . .
-        . . . . . . .
-        X . . . . . .
-        EXPECTED
-          ).to_stdout
+        expect(turn.player_move("A", empty_board)).to eq(:A1)
       end
 
       it "is an invalid move" do #fails because of a new loop
@@ -94,7 +83,7 @@ RSpec.describe Turn do
         turn.player_move("G", current_board)
       end
 
-      expect(turn.end_game?(":G4", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
 
     end
 
@@ -107,7 +96,7 @@ RSpec.describe Turn do
       current_board[:B3] = "O "
       current_board[:B4] = "O "
 
-      expect(turn.end_game?(":B4", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
 
@@ -119,7 +108,7 @@ RSpec.describe Turn do
       current_board[:D1] = "O "
       current_board[:E1] = "O "
 
-      expect(turn.end_game?(":E1",current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
 
@@ -131,7 +120,7 @@ RSpec.describe Turn do
       turn.player_move("B", current_board)
       turn.player_move("C", current_board)
       turn.player_move("D", current_board)
-      expect(turn.end_game?(":D1", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
 
@@ -143,7 +132,7 @@ RSpec.describe Turn do
       current_board[:D3] = "O "
       current_board[:E4] = "O "
 
-      expect(turn.end_game?("B1", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
     it "declares winner player diagnal up" do
@@ -153,7 +142,7 @@ RSpec.describe Turn do
       current_board[:C2] = "X "
       current_board[:D3] = "X "
       current_board[:E4] = "X "
-      expect(turn.end_game?("B1", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
 
@@ -165,7 +154,7 @@ RSpec.describe Turn do
       current_board[:D2] = "O "
       current_board[:E1] = "O "
 
-      expect(turn.end_game?("B4", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
     it "declares winner player diagnal down" do
@@ -175,7 +164,7 @@ RSpec.describe Turn do
       current_board[:C3] = "X "
       current_board[:D2] = "X "
       current_board[:E1] = "X "
-      expect(turn.end_game?("B4", current_board)).to eq(true)
+      expect(turn.end_game?(current_board)).to eq(true)
     end
 
 

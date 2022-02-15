@@ -45,15 +45,14 @@ class Turn
       column_selected = column_selected.upcase
       @current_board = input_board
       cf = column_full?(column_selected)
-# binding.pry
-#######################################if valid move, places a piece
+
           if cf == false
-            current_cell =  @current_column.find do |key, value| ###
+            current_cell =  @current_column.find do |key, value|
                             value == ". " || value == "."
                             end
             current_cell_index = current_cell[0]
             @current_board[current_cell_index] = "X "
-            Board.new(@current_board).print_board
+            return current_cell_index
           else cf == true
             Board.new(@current_board).print_board
             puts ""
@@ -67,8 +66,6 @@ class Turn
 
   end
 
-
-
   def computer_move(input_board)
     sleep([0.5, 1].sample)
     column_cpu = @column_name.sample
@@ -81,7 +78,7 @@ class Turn
     end
 
     until @current_column.values.include?". " do
-      computer_move(input_board)
+      computer_move(@current_board)
     end
 
     current_cell =  @current_column.find do |key, value| ###
@@ -89,7 +86,6 @@ class Turn
                     end
     current_cell_index = current_cell[0]
     @current_board[current_cell_index] = "O "
-    Board.new(@current_board).print_board
 
   end
 
@@ -97,7 +93,6 @@ class Turn
 
   def end_game?(input_board)
     @current_board = input_board
-    ############################row condition
     row_names = ["6","5","4","3","2","1"]
     rows = []
     row_names.each do |row|
@@ -125,7 +120,6 @@ class Turn
       endcounterrow += 1
     end
 
-    ###################################column condition
     column_names = ["A","B","C","D","E","F", "G"]
     columns = []
     column_names.each do |column|
@@ -153,10 +147,6 @@ class Turn
       endcountercolumn += 1
     end
 
-
-
-
-    ############################################### diagonal condition
     cb = @current_board
     @DU1 = [] ; @DU2 = []; @DU3 = []; @DU4 = []; @DU5 = []; @DU6 = []
     @DD1 = [] ; @DD2 = []; @DD3 = []; @DD4 = []; @DD5 = []; @DD6 = []
@@ -184,15 +174,17 @@ class Turn
         return true
       end
     end
+  end
 
-
-    ##################################### draw condition
+  def end_game_draw?(input_board)
+      current_board = input_board
     if current_board.values.none?"."
       puts "Draw!"
       return true
     end
-
   end
+
+
 
 
 end

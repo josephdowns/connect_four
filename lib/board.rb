@@ -3,7 +3,7 @@ require "pry"
 #
 class Board
   attr_reader :board, :empty_board
-  def initialize(board) #start Board class as a hash
+  def initialize(board)
     @board = board
     @empty_board ={ A1:". ", B1:". ", C1:". ", D1:". ", E1:". ", F1:". ", G1:".",
                     A2:". ", B2:". ", C2:". ", D2:". ", E2:". ", F2:". ", G2:".",
