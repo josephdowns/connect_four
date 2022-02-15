@@ -6,12 +6,12 @@ require "pry"
 
 RSpec.describe Turn do
 
-  context "player_move" do
+  context "player_1_move" do
 
       it "test the move" do
         turn = Turn.new
         empty_board = Board.new({}).empty_board
-        expect(turn.player_move("A", empty_board)).to eq(:A1)
+        expect(turn.player_1_move("A", empty_board)).to eq(:A1)
       end
 
       it "is an invalid move" do #fails because of a new loop
@@ -25,7 +25,7 @@ RSpec.describe Turn do
         current_board = Board.new({}).empty_board
         turn = Turn.new
         6.times do
-          turn.player_move("G", current_board)
+          turn.player_1_move("G", current_board)
         end
         expect(turn.column_full?("G")).to eq(true)
 
@@ -42,7 +42,7 @@ RSpec.describe Turn do
       cb = eb
       columns = [ "A", "B", "C", "D", "E", "F", "G"]
       columns.each do |col|
-        turn_new.player_move(col, cb)
+        turn_new.player_1_move(col, cb)
         cb = turn_new.current_board
       end
       turn_new.computer_move(cb)
@@ -80,7 +80,7 @@ RSpec.describe Turn do
       turn = Turn.new
       current_board = Board.new({}).empty_board
       4.times do
-        turn.player_move("G", current_board)
+        turn.player_1_move("G", current_board)
       end
 
       expect(turn.end_game?(current_board)).to eq(true)
@@ -116,10 +116,10 @@ RSpec.describe Turn do
     it "declares winner player row" do
       turn = Turn.new
       current_board = Board.new({}).empty_board
-      turn.player_move("A", current_board)
-      turn.player_move("B", current_board)
-      turn.player_move("C", current_board)
-      turn.player_move("D", current_board)
+      turn.player_1_move("A", current_board)
+      turn.player_1_move("B", current_board)
+      turn.player_1_move("C", current_board)
+      turn.player_1_move("D", current_board)
       expect(turn.end_game?(current_board)).to eq(true)
     end
 
