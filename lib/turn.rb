@@ -1,4 +1,4 @@
-require 'pry'
+require "pry"
 
 class Turn
   attr_reader :empty_board, :current_board
@@ -33,7 +33,7 @@ class Turn
   def column_full?(column_selected)
     column_selected = column_selected
     gather_column(column_selected)
-    if @current_column.values.any?(".")
+    if @current_column.values.any?(". ") || @current_column.values.any?(".")
       return false
     else
       return true
@@ -49,10 +49,10 @@ class Turn
 #######################################if valid move, places a piece
           if cf == false
             current_cell =  @current_column.find do |key, value| ###
-                            value == '.'
+                            value == ". " || value == "."
                             end
             current_cell_index = current_cell[0]
-            @current_board[current_cell_index] = 'x'
+            @current_board[current_cell_index] = "X "
             Board.new(@current_board).print_board
           else cf == true
             Board.new(@current_board).print_board
@@ -80,15 +80,15 @@ class Turn
       end
     end
 
-    until @current_column.values.include?'.' do
+    until @current_column.values.include?". " do
       computer_move(input_board)
     end
 
     current_cell =  @current_column.find do |key, value| ###
-                    value == '.'
+                    value == ". "
                     end
     current_cell_index = current_cell[0]
-    @current_board[current_cell_index] = 'o'
+    @current_board[current_cell_index] = "O "
     Board.new(@current_board).print_board
 
   end
@@ -98,7 +98,7 @@ class Turn
   def end_game?(input_board)
     @current_board = input_board
     ############################row condition
-    row_names = ['6','5','4','3','2','1']
+    row_names = ["6","5","4","3","2","1"]
     rows = []
     row_names.each do |row|
       current_row_selected = {}
@@ -112,11 +112,11 @@ class Turn
 
     endcounterrow = 0
     until endcounterrow == 6 do
-      if rows[endcounterrow].values.join.include?("xxxx") == true
+      if rows[endcounterrow].values.join.include?("X X X X") == true
         puts ""
         puts "You win!"
         return true
-      elsif rows[endcounterrow].values.join.include?("oooo") == true
+      elsif rows[endcounterrow].values.join.include?("O O O O") == true
         puts ""
         puts "You lose. I win!"
         return true
@@ -126,7 +126,7 @@ class Turn
     end
 
     ###################################column condition
-    column_names = ['A','B','C','D','E','F', 'G']
+    column_names = ["A","B","C","D","E","F", "G"]
     columns = []
     column_names.each do |column|
       current_column_selected = {}
@@ -140,11 +140,11 @@ class Turn
 
     endcountercolumn = 0
     until endcountercolumn == 7 do
-      if columns[endcountercolumn].values.join.include?("xxxx") == true
+      if columns[endcountercolumn].values.join.include?("X X X X") == true
         puts ""
         puts "You win!"
         return true
-      elsif columns[endcountercolumn].values.join.include?("oooo") == true
+      elsif columns[endcountercolumn].values.join.include?("O O O O") == true
         puts ""
         puts "You lose. I win!"
         return true
@@ -176,10 +176,10 @@ class Turn
 
     diagonal_lines = [@DU1, @DU2, @DU3, @DU4, @DU5, @DU6, @DD1, @DD2, @DD3, @DD4, @DD5, @DD6]
     diagonal_lines.each do |line|
-      if line.join.include?'xxxx'
+      if line.join.include?"X X X X"
         puts "You win!"
         return true
-      elsif line.join.include?'oooo'
+      elsif line.join.include?"O O O O"
         puts "You lose."
         return true
       end
@@ -187,7 +187,7 @@ class Turn
 
 
     ##################################### draw condition
-    if current_board.values.none?'.'
+    if current_board.values.none?"."
       puts "Draw!"
       return true
     end
