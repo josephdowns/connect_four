@@ -19,12 +19,12 @@ class Board
         puts "A B C D E F G"
         rows = ["1","2","3","4","5","6"].reverse
         rows.each do |row|
-            current_row = {}
-            @board.each do |key, value|
-              if key.to_s.include?row
-                current_row[key] = value
-              end
+          current_row = {}
+          @board.each do |key, value|
+            if key.to_s.include?row
+              current_row[key] = value
             end
+          end
           puts current_row.values.join
         end
   end

@@ -173,7 +173,7 @@ RSpec.describe Turn do
       current_board = Board.new({}).empty_board
       draw_board = {}
       current_board.each do |k, v|
-          draw_board[k] = "w"
+          draw_board[k] = "X "
       end
       expect(turn.end_game_draw?(draw_board)).to eq(true)
     end
