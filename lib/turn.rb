@@ -91,15 +91,6 @@ class Turn
 
     end
 
-
-
-
-
-
-
-
-
-
   def computer_move(input_board)
     sleep([0.5, 1].sample)
     column_cpu = @column_name.sample
@@ -122,8 +113,6 @@ class Turn
     @current_board[current_cell_index] = "O "
 
   end
-
-
 
   def end_game?(input_board)
     @current_board = input_board
@@ -190,7 +179,7 @@ class Turn
     @DU3 = [cb[:C1], cb[:D2], cb[:E3], cb[:F4], cb[:G5]]
     @DU4 = [cb[:D1], cb[:E2], cb[:F3], cb[:G4]]
     @DU5 = [cb[:A2], cb[:B3], cb[:C4], cb[:D5], cb[:E6]]
-    @DU6 = [cb[:A3], cb[:B4], cb[:D5], cb[:E6]]
+    @DU6 = [cb[:A3], cb[:B4], cb[:C5], cb[:D6]]
     @DD1 = [cb[:G1], cb[:F2], cb[:E3], cb[:D4], cb[:C5], cb[:B6]]
     @DD2 = [cb[:F1], cb[:E2], cb[:D3], cb[:C4], cb[:B5], cb[:A6]]
     @DD3 = [cb[:E1], cb[:D2], cb[:C3], cb[:B4], cb[:A5]]
@@ -279,7 +268,7 @@ class Turn
     @DU3 = [cb[:C1], cb[:D2], cb[:E3], cb[:F4], cb[:G5]]
     @DU4 = [cb[:D1], cb[:E2], cb[:F3], cb[:G4]]
     @DU5 = [cb[:A2], cb[:B3], cb[:C4], cb[:D5], cb[:E6]]
-    @DU6 = [cb[:A3], cb[:B4], cb[:D5], cb[:E6]]
+    @DU6 = [cb[:A3], cb[:B4], cb[:C5], cb[:D6]]
     @DD1 = [cb[:G1], cb[:F2], cb[:E3], cb[:D4], cb[:C5], cb[:B6]]
     @DD2 = [cb[:F1], cb[:E2], cb[:D3], cb[:C4], cb[:B5], cb[:A6]]
     @DD3 = [cb[:E1], cb[:D2], cb[:C3], cb[:B4], cb[:A5]]
@@ -303,10 +292,19 @@ class Turn
 
   def end_game_draw?(input_board)
       current_board = input_board
-    if current_board.values.none?"."
+      pieces_counter = 0
+      current_board.each do |key, value|
+        if value.include?("X ") || value.include?("O ")
+         pieces_counter += 1
+        end
+      end
+
+    if pieces_counter == 42
+      puts ""
       puts "Draw!"
       return true
     end
   end
+
 
 end

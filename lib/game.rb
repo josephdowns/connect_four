@@ -4,8 +4,6 @@ require 'pry'
 
 class Game
 
-
-
   def print_prompts
     puts ""
     print "> "
@@ -90,7 +88,7 @@ class Game
           puts "*"*5 + "My turn! Give me a sec..." + "*"*5
           turn_init.computer_move(@current_board)
           Board.new(@current_board).print_board
-          if turn_init.end_game?(@current_board) == true
+          if turn_init.end_game?(@current_board) == true || turn_init.end_game_draw?(@current_board) == true
               puts ""
               break
           end
@@ -140,11 +138,11 @@ class Game
           end
           turn_init.player_2_move(column_selected_2, @current_board)
           Board.new(@current_board).print_board
-          if turn_init.end_game_2p?(p1, p2, @current_board) == true
+          if turn_init.end_game_2p?(p1, p2, @current_board) == true || turn_init.end_game_draw?(@current_board) == true
               puts ""
               break
           end
-          put ""
+          puts ""
           puts "#{p1}, make your next move."
           print_prompts
           column_selected_1= $stdin.gets.chomp.strip
