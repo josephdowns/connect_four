@@ -1,3 +1,1 @@
-To whom it may concern:
-
-Done is better than perfect.
+Using the terminal commands, play Connect Four with the computer or a friend!
